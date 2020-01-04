@@ -35,21 +35,9 @@ document.body.appendChild(renderer.domElement);
 var camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.01, 5000);
 camera.rotation.y = 45 / 180 * Math.PI;
 
-
-var eixos = new THREE.AxesHelper();
-
-//cena.add(eixos);
-
 camera.position.x = 4.5;
 camera.position.y = 3;
 camera.position.z = 7;
-
-
-//GRID
-
-var grelha = new THREE.GridHelper();
-//cena.add(grelha);
-
 
 //CONTROLS
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -83,12 +71,6 @@ var luzPonto4 = new THREE.PointLight("white", intLuz);
 luzPonto4.position.set(-5, 5, -3);
 //cena.add(luzPonto4);
 
-
-
-
-
-
-
 var spotLight = new THREE.SpotLight(0xffffff);
 spotLight.position.set(5, 5, 3);
 spotLight.castShadow = true;
@@ -108,34 +90,7 @@ cena.add(spotLight2.target);
 cena.add(spotLight2);
 
 
- var spotLightHelper = new THREE.SpotLightHelper( spotLight2 );
-//cena.add( spotLightHelper );
- 
-
-/* var sphereSize = 0.3;
-var pointLightHelper1 = new THREE.PointLightHelper(luzPonto1, sphereSize);
-cena.add(pointLightHelper1);
-
-
-var pointLightHelper2 = new THREE.PointLightHelper(luzPonto2, sphereSize);
-cena.add(pointLightHelper2);
-
-var pointLightHelper3 = new THREE.PointLightHelper(luzPonto3, sphereSize);
-cena.add(pointLightHelper3);
-
-var pointLightHelper4 = new THREE.PointLightHelper(luzPonto4, sphereSize);
-cena.add(pointLightHelper4);
- */
-//Função para FPS
-/* var stats = new Stats();
-stats.showPanel(1);
-
-document.body.appendChild(stats.domElement);
- */
-
 var acao = null;
-
-
 var carregador = new THREE.GLTFLoader();
 
 carregador.load('Cena.gltf', function (gltf) {
@@ -207,10 +162,10 @@ window.onclick = function (evento) {
 var listener = new THREE.AudioListener();
 camera.add(listener);
 
-// Criar uma fonte de som global
+// Create a global sound source
 var som = new THREE.Audio(listener);
 
-// Carregar um som e colocá-lo no buffer to objecto som.
+// Load a sound and put in the the object sound buffer
 var audioLoader = new THREE.AudioLoader();
 audioLoader.load('sounds/zipper.ogg', function (buffer) {
 	som.setBuffer(buffer);
@@ -261,8 +216,8 @@ function pegarPrimeiro() {
 
 }
 
+//This was used to make a color picker so we can change the object color in the interface
 var gui = new dat.GUI();
-
 var conf = { color: '#ffffff' };
 gui.addColor(conf, 'color').onChange(function (colorValue) {
 	for (i = 0; i < mala.children.length; i++) {
@@ -272,13 +227,14 @@ gui.addColor(conf, 'color').onChange(function (colorValue) {
 
 });
 
-
+//function to spin the backpack
 function rodar() {
 	if (roda) {
 		mala.rotateY(0.01);
 	}
 }
 
+//Function for turn on and off the lights when we click the floor lamp
 function ligar(){
 	if(ligado){
 		luzAmbiente.visible = luzPonto1.visible = 
@@ -292,5 +248,5 @@ function ligar(){
 	}
 }
 
-
+//This starts the animation
 animar();
